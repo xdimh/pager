@@ -13,7 +13,7 @@
         curno: 1, //当前页码
         limit: 10,
         show: 5,
-        total: 1, //总页码
+        total: 0, //总页码
         totalRecords: 0, //总数据条数
         isShowFirstPageBtn: true, //是否显示首页按钮
         isShowLastPageBtn: true, //是否显示尾页按钮
@@ -47,6 +47,8 @@
     _pro.__init = function (opts) {
         this.opts = $.extends(Pager.DEFAULTS, opts);
         this.lang = this.opts.lang;
+        this.count = Math.floor(this.opts.show / 2);
+        this.opts.total = this.opts.totalRecords && Math.ceil(this.opts.totalRecords / this.opts.limit);
         if (this.opts.totalRecords > this.opts.limit || this.opts.total > 1) {
             this.pager = $('<div class="m-pager"></div>');
             this.pageNoWraper = $('<span class="pages"></span>');
@@ -59,22 +61,35 @@
 
     _pro.__createFirstPrevPageBtn = function () {
         var _firstPageBtn,_prevPageBtn;
+        _prevPageBtn = $('<a>').text(this.lang.prePageText)
+            .attr({
+                title : this.lang.prePageTipText
+            });
         if (this.opts.isShowFirstPageBtn) {
             _firstPageBtn = $('<a>').text(this.lang.firstPageText)
                 .attr({
                     title: this.lang.firstPageTipText
                 });
-            if(this.cur == 1) {
-                _firstPageBtn.addClass('disabled');
-            }
-            this.pageNoWraper.append(_firstPageBtn);
         }
-        _prevPageBtn = $('<a>').text(this.lang)
+        if(this.opts.curno == 1) {
+            _prevPageBtn.addClass('disabled');
+            _firstPageBtn && _firstPageBtn.addClass('disabled');
+        }
+        _firstPageBtn && this.pageNoWraper.append(_firstPageBtn);
+        this.pageNoWraper.append(_prevPageBtn);
     };
 
+    _pro.__createPageNoBtn = function() {
+        var _begin,_end,_pageNoBtn,
+            _opts = this.opts;
+        if(_opts.total < (this.count * 2 + 3)) {
+            for(var i = 1; i < _opts.totals; i++) {
 
+            }
+        } else {
 
-
+        }
+    };
 
     $.fn.pager = function () {
 
