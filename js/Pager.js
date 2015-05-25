@@ -156,6 +156,37 @@
         this.pageNoWraper.append(_nextPageBtn);
     };
 
+    _pro.__onFirstBtnClick = function(_event) {
+        this.opts.curno = 1;
+        this.__updatePageNo();
+        this.opts.onchange();
+    };
+
+    _pro.__onLastBtnClick = function(_event) {
+        this.opts.curno = this.opts.total;
+        this.__updatePageNo();
+        this.opts.onchange();
+    };
+
+    _pro.__onPrevBtnClick = function (_event) {
+
+    };
+
+    _pro.__onNextBtnClick = function(_event) {
+
+    }
+
+    _pro.__bindEvent = function() {
+        $('.first').bind('click', $.proxy(this.__onFirstBtnClick,this));
+        $('.last').bind('click',$.proxy(this.__onLastBtnClick,this));
+        $('.prev').bind('click',$.proxy(this.__onPrevBtnClick,this));
+        $('.next').bind('click',$.proxy(this.__onNextBtnClick,this));
+    };
+
+    _pro.__updatePageNo = function() {
+
+    };
+
     $.fn.pager = function () {
         new Pager();
         //return $(this).each(function() {
