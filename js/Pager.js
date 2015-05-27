@@ -203,7 +203,9 @@
            _len = $('.pageno',this.pageNoWraper).length,
            _pageNos = $('.pageno',this.pageNoWraper).filter(function(index){
                return index != 0 && _len-1 != index;
-           });
+           }),
+           _isShowPrevDot = false,
+           _isShowNextDot = false;
        if(_opts.curno <= 1) {
            _opts.curno = 1;
            $('.first,.prev').addClass('disabled');
@@ -231,11 +233,28 @@
                _end = _opts.total;
            }
            if(_begin > 2) {
+               _isShowPrevDot = true;
+           } else if(_begin == 1) {
+               _begin = 2;
+           }
+           if(_end < _opts.total - 1) {
+               _isShowNextDot = true;
+           } else if (_end == _opts.total) {
+               _end == _opts.total - 1;
+           }
 
+           console.log(_pageNos);
+           if(_pageNos.length > (_end - _begin +1)) {
+               _pageNos.last().remove();
+               _pageNos.filter(function(index){
+                   return index != _pageNos.length - 1;
+               });
 
-           } else if(_begin == 2) {
+           } else {
 
            }
+
+
            for(var i = _begin;i <= _end; i++) {
 
            }
