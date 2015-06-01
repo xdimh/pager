@@ -117,7 +117,7 @@
             }
             if(_begin > 2) {
                 this.pageNoWraper.append('<a class="pageno" data-action="pageno" data-pageno="1" href="javascript:void(0);" title="第1页">1</a>');
-                this.pageNoWraper.append('<a class="prevdots" href="javascript:void(0);">...</a>');
+                this.pageNoWraper.append('<span class="prevdots">...</span>');
             } else if(_begin == 2) {
                 this.pageNoWraper.append('<a class="pageno" data-action="pageno" data-pageno="1" href="javascript:void(0);" title="第1页">1</a>');
             }
@@ -133,7 +133,7 @@
                 this.pageNoWraper.append(_pageNoBtn);
             }
             if(_end < _opts.total - 1) {
-                this.pageNoWraper.append('<a class="nextdots" href="javascript:void(0);">...</a>');
+                this.pageNoWraper.append('<span class="nextdots">...</span>');
                 this.pageNoWraper.append('<a class="pageno" href="javascript:void(0);" title="第'+ _opts.total + '页" data-action="pageno" data-pageno="'+ _opts.total  +'">' + _opts.total + '</a>');
             } else if(_end == _opts.total - 1) {
                 this.pageNoWraper.append('<a class="pageno" href="javascript:void(0);" title="第'+ _opts.total + '页" data-action="pageno" data-pageno="'+ _opts.total  +'">' + _opts.total + '</a>');
@@ -169,7 +169,7 @@
     _pro.__onPageBtnClick = function(_event) {
         var _$target= $(_event.target),
             _action = _$target.data('action');
-        if(!_$target.hasClass('active') && !_$target.hasClass('disabled')) {
+        if(!_$target.hasClass('active') && !_$target.hasClass('disabled') && !_$target.hasClass('prevdots') && !_$target.hasClass('nextdots')) {
             switch (_action) {
                 case "prev" :
                     this.opts.curno -= 1;
@@ -184,13 +184,16 @@
                     this.opts.curno = this.opts.total;
                     break;
                 case "pageno" :
-                    this.opts.curno = _$target.data('pageno');
+                    this.opts.curno = +_$target[0].getAttribute('data-pageno');
                     break;
                 default :
                     break;
             }
             this.__updatePageNo();
-            //this.opts.onchange();
+            this.opts.onchange({
+                limit : this.opts.limit,
+                index : this.opts.curno
+            });
         }
     };
 
@@ -205,7 +208,9 @@
                return index != 0 && _len-1 != index;
            }),
            _isShowPrevDot = false,
-           _isShowNextDot = false;
+           _isShowNextDot = false,
+           _lastSet;
+
        if(_opts.curno <= 1) {
            _opts.curno = 1;
            $('.first,.prev').addClass('disabled');
@@ -218,6 +223,7 @@
        } else {
            $('.last,.next').removeClass('disabled');
        }
+
        if(_opts.total < (this.count * 2 + 3)) {
             $('.pageno',this.pageNoWraper).removeClass('active');
             $('[data-pageno="' + _opts.curno + '"]').addClass('active');
@@ -240,34 +246,61 @@
            if(_end < _opts.total - 1) {
                _isShowNextDot = true;
            } else if (_end == _opts.total) {
-               _end == _opts.total - 1;
+               _end = _opts.total - 1;
            }
 
-           console.log(_pageNos);
+           if(_isShowPrevDot && $('.prevdots',this.pageNoWraper).size() == 0) {
+               $('.prev',this.pageNoWraper).next().after('<span class="prevdots">...</span>');
+           } else if(!_isShowPrevDot && $('.prevdots',this.pageNoWraper).size()) {
+               $('.prevdots',this.pageNoWraper).remove();
+           }
+
+           if(_isShowNextDot && $('.nextdots',this.pageNoWraper).size() == 0) {
+               $('.next',this.pageNoWraper).prev().before('<span class="nextdots">...</span>');
+           } else if(!_isShowNextDot && $('.nextdots',this.pageNoWraper).size()) {
+               $('.nextdots',this.pageNoWraper).remove();
+           }
+
+
            if(_pageNos.length > (_end - _begin +1)) {
                _pageNos.last().remove();
-               _pageNos.filter(function(index){
+               _lastSet = _pageNos.filter(function(index){
                    return index != _pageNos.length - 1;
                });
-
+           } else if(_pageNos.length < (_end - _begin +1)) {
+               var _newPage = $('<a class="pageno"></a>');
+               _pageNos.last().after(_newPage);
+               _lastSet = _pageNos.add(_newPage);
            } else {
-
+               _lastSet = _pageNos;
            }
-
-
-           for(var i = _begin;i <= _end; i++) {
-
+           $('.pageno',this.pageNoWraper).removeClass('active');
+           if(_opts.curno == 1) {
+               $('.prev',this.pageNoWraper).next().addClass('active');
+           } else if(_opts.curno == _opts.total) {
+               $('.next',this.pageNoWraper).prev().addClass('active');
            }
-           if(_end < _opts.total - 1) {
-
-           } else if(_end == _opts.total - 1) {
-
+           for(var i = 0; i < _lastSet.length; i++) {
+               var _pageno = _begin + i;
+               _lastSet.eq(i).text(_pageno).attr({
+                   "data-action" : 'pageno',
+                   "data-pageno" : _pageno,
+                   "title" : '第' + _pageno + '页',
+                   "href" : 'javascript:void(0);'
+               }).addClass('pageno');
+               if(_pageno == _opts.curno) {
+                   _lastSet.eq(i).addClass('active');
+               }
            }
        }
     };
 
     $.fn.pager = function () {
-        new Pager();
+        new Pager({
+            onchange : function(_data) {
+                alert(_data.index);
+            }
+        });
         //return $(this).each(function() {
         //    alert();
         //    new Pager();

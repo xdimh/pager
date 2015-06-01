@@ -1,2 +1,58 @@
 @import "mixin";
 @import "variable";
+
+.m-pager {
+  .disabled,
+  a.disabled:hover{
+    color:@disable_text_color;
+    border:1px solid @disable_border_color;
+    background-color: @disable_bg_color;
+    cursor: text;
+  }
+  a,span{
+    display: inline-block;
+    font-size:@text-size;
+    color:@text_color;
+  }
+  a,span.prevdots,span.nextdots {
+    margin-left:5px;
+  }
+  span.prevdots,span.nextdots {
+    vertical-align: 2px;
+  }
+  a {
+    .btn-padding();
+    border:1px solid @btn_border_color;
+    border-radius: @btn-border-radius;
+    text-decoration: none;
+    &:hover {
+      border:1px solid @hover_border_color;
+      color: @hover_txt_color;
+      background-color: @hover_bg_color;
+    }
+    &.active {
+      border:1px solid @active_border_color;
+      color: @active_txt_color;
+      background-color: @active_bg_color;
+    }
+  }
+  .more {
+    input {
+      width:@go-ipt-width;
+      height:@go-ipt-height;
+      color:@goipt-txt-color;
+      text-align:center;
+      margin-left:1px;
+      margin-right:1px;
+      border:1px solid @goipt-border-color;
+      position:relative;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      outline:none;
+      &:focus {
+        border-color: @goipt-foucs-border-color;
+      }
+    }
+  }
+}
