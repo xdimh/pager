@@ -37,6 +37,10 @@
     }
   }
   .more {
+    margin-left:20px;
+    input,button {
+      outline:none;
+    }
     input {
       width:@go-ipt-width;
       height:@go-ipt-height;
@@ -49,10 +53,25 @@
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
       border-radius: 3px;
-      outline:none;
       &:focus {
         border-color: @goipt-foucs-border-color;
       }
+    }
+    .total {
+      strong {
+        font-weight: normal;
+        color:red;
+      }
+    }
+    button {
+      .btn-padding(1px,8px,1px,8px);
+      margin-left:5px;
+      border:0;
+      border-radius:@btn-border-radius;
+      font-size:13px;
+      color:@gobtn-txt-color;
+      background-color: @gobtn-bg-color;
+      cursor: pointer;
     }
   }
 }
