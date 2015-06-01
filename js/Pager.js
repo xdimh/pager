@@ -68,7 +68,6 @@
         this.__createGoBtn();
         this.pager.append(this.pageNoWraper);
         this.pager.append(this.moreWraper);
-        $('body').append(this.pager);
     };
 
     _pro.__createFirstPrevPageBtn = function () {
@@ -364,16 +363,26 @@
         }
     };
 
-    $.fn.pager = function () {
-        new Pager({
-            onchange: function (_data) {
-                console.log(_data.index);
-            }
+    _pro._$goPageNo = function(n) {
+        if(n != this.curno) {
+            this.opts.curno = n;
+            this.__updatePageNo();
+            this.opts.onchange({
+                limit: this.opts.limit,
+                index : n
+            })
+        }
+    };
+
+    _pro._$getPager = function() {
+      return this.pager;
+    };
+
+    $.fn.pager = function (_opts) {
+        return this.each(function(index,container){
+           var _pager = new Pager(_opts)._$getPager();
+            $(container).append(_pager);
         });
-        //return $(this).each(function() {
-        //    alert();
-        //    new Pager();
-        //});
     };
 
 })(window, jQuery, void 0);

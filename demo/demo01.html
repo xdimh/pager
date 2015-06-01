@@ -6,41 +6,20 @@
     <link rel="stylesheet" href="../css/pager_blue.css"/>
 </head>
 <body>
-<div id="pagerwraper">
-    <div class="m-pager"><span class="pages"><a href="javascript:void(0);" title="首页" data-action="first" class="first">首页</a><a
-            href="javascript:void(0);" title="上一页" data-action="prev" class="prev">上一页</a>
-        <a href="javascript:void(0);"
-           title="第1页" data-pageno="1"
-           data-action="pageno"
-           class="pageno">1</a><a
-                href="javascript:void(0);" title="第2页" data-pageno="2" data-action="pageno" class="pageno">2</a><a
-                href="javascript:void(0);" title="第3页" data-pageno="3" data-action="pageno" class="pageno">3</a><a
-                href="javascript:void(0);" title="第4页" data-pageno="4" data-action="pageno"
-                class="pageno active">4</a><a
-                href="javascript:void(0);" title="第5页" data-pageno="5" data-action="pageno" class="pageno">5</a><a
-                href="javascript:void(0);" title="第6页" data-pageno="6" data-action="pageno" class="pageno">6</a><a
-                href="javascript:void(0);" title="第7页" data-pageno="7" data-action="pageno" class="pageno">7</a><span
-                class="nextdots">...</span><a class="pageno" href="javascript:void(0);" title="第20页"
-                                              data-action="pageno"
-                                              data-pageno="20">20</a><a href="javascript:void(0);" title="下一页"
-                                                                        data-action="next" class="next">下一页</a><a
-                href="javascript:void(0);" title="尾页" data-action="last" class="last">尾页</a></span>
-        <span class="more">
-            <span class="total">
-                <span>当前第<strong>1</strong>页</span><spa>/</spa><span>共20页</span>
-            </span>
-            <span class="gobtn">
-                转到
-                <input id="J-pagenoipt" class="pagenoipt" type="text"/>
-                <button id="J-gobtn" class="gobtn" type="button" >确定</button>
-            </span>
-        </span>
-    </div>
+<div class="J-pagerwraper">
+
+</div>
+<div class="J-pagerwraper">
+
 </div>
 <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 <script src="../js/Pager.js"></script>
 <script>
-    $('#J-pagerwraper').pager();
+    $('.J-pagerwraper').pager({
+        onchange:function(_data) {
+            alert(_data.index);
+        }
+    });
 </script>
 </body>
 </html>
