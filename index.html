@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Pager : Pager is a jQuery pagination plugin,you can easily use in your project with jQuery.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Pager</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/xdimh/pager">View on GitHub</a>
+
+          <h1 id="project_title">Pager</h1>
+          <h2 id="project_tagline">Pager is a jQuery pagination plugin,you can easily use in your project with jQuery.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/xdimh/pager/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/xdimh/pager/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use it</h3>
+
+<h5>
+<a id="1--add-below-in-your-html-file" class="anchor" href="#1--add-below-in-your-html-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.  Add below in your html file.</h5>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">link</span> <span class="pl-e">rel</span>=<span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>YourPath/pager_blue.css<span class="pl-pds">"</span></span>/&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>YourPath/Pager.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<h5>
+<a id="2-add-pager-container" class="anchor" href="#2-add-pager-container" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Add pager container</h5>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>J-pager<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<h5>
+<a id="3-init-pager-like-below" class="anchor" href="#3-init-pager-like-below" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. init pager like below</h5>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
+  $(<span class="pl-s"><span class="pl-pds">'</span>#J-pager<span class="pl-pds">'</span></span>).pager({
+     curno <span class="pl-k">:</span> <span class="pl-c1">1</span>,
+     total <span class="pl-k">:</span> <span class="pl-c1">20</span>
+  });
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+
+<h5>
+<a id="4-result" class="anchor" href="#4-result" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. result</h5>
+
+<p><img src="http://7oxjbb.com1.z0.glb.clouddn.com/pagerp1.jpg" alt="pager01"></p>
+
+<h3>
+<a id="custom-pager-lang" class="anchor" href="#custom-pager-lang" aria-hidden="true"><span class="octicon octicon-link"></span></a>custom pager lang</h3>
+
+<p>You can pass the corresponding options to custom pager lang.</p>
+
+<pre lang="javascrpt"><code> $('.J-pagerwraper2').pager({
+        curno : 1,
+        total:22,
+        onchange:function(_data) {
+            alert(_data.index);
+        },
+        lang: {
+            firstPageText: 'Home',
+            firstPageTipText: 'Home',
+            lastPageText: 'End',
+            lastPageTipText: 'End',
+            prePageText: '&lt;Prev',
+            prePageTipText: 'Prev',
+            nextPageText: 'Next&gt;',
+            nextPageTipText: 'Next',
+            totalPageBeforeText: 'total',
+            totalPageAfterText: 'pages',
+            currPageBeforeText: 'current:',
+            currPageAfterText: '',
+            totalInfoSplitStr: '/',
+            gopageBeforeText: '&amp;nbsp;JumpTo',
+            gopageButtonOkText: 'Go',
+            gopageAfterText: ''
+        }
+    });
+</code></pre>
+
+<p>Result
+<img src="http://7oxjbb.com1.z0.glb.clouddn.com/pagerp2.jpg" alt="pager02"></p>
+
+<h3>
+<a id="you-can-achieve-two-pagers-move-together-by-using-ref-option" class="anchor" href="#you-can-achieve-two-pagers-move-together-by-using-ref-option" aria-hidden="true"><span class="octicon octicon-link"></span></a>You can achieve two pagers move together by using 'ref' option.</h3>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
+    $(<span class="pl-s"><span class="pl-pds">'</span>.J-pagerwraper1<span class="pl-pds">'</span></span>).pager();
+    $(<span class="pl-s"><span class="pl-pds">'</span>.J-pagerwraper2<span class="pl-pds">'</span></span>).pager({
+        ref <span class="pl-k">:</span> $(<span class="pl-s"><span class="pl-pds">'</span>.J-pagerwraper1<span class="pl-pds">'</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>xdimh.pager<span class="pl-pds">'</span></span>)
+    });
+<span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
+
+<p>Result:
+<img src="http://7oxjbb.com1.z0.glb.clouddn.com/pagerlinked.gif" alt="pagerlinked"></p>
+
+<h3>
+<a id="you-can-custom-style-by-change-less-file-and-recompile" class="anchor" href="#you-can-custom-style-by-change-less-file-and-recompile" aria-hidden="true"><span class="octicon octicon-link"></span></a>You Can custom style by change less file and recompile</h3>
+
+<h3>
+<a id="all-options" class="anchor" href="#all-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>All Options</h3>
+
+<div class="highlight highlight-javascript"><pre>Pager.DEFAULTS <span class="pl-k">=</span> {
+        curno<span class="pl-k">:</span> <span class="pl-c1">4</span>, <span class="pl-c">//current pageno</span>
+        limit<span class="pl-k">:</span> <span class="pl-c1">10</span>,
+        show<span class="pl-k">:</span> <span class="pl-c1">5</span>,
+        total<span class="pl-k">:</span> <span class="pl-c1">122</span>, <span class="pl-c">//total number of pages</span>
+        totalRecords<span class="pl-k">:</span> <span class="pl-c1">0</span>, <span class="pl-c">//total number of records</span>
+        isShowFirstPageBtn<span class="pl-k">:</span> <span class="pl-c1">true</span>, 
+        isShowLastPageBtn<span class="pl-k">:</span> <span class="pl-c1">true</span>, 
+        isShowTotalPage<span class="pl-k">:</span> <span class="pl-c1">true</span>, 
+        isShowCurPageNo<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+        isShowTotalRecords<span class="pl-k">:</span> <span class="pl-c1">true</span>, 
+        isGoPage<span class="pl-k">:</span> <span class="pl-c1">true</span>, 
+        <span class="pl-en">onchange</span> : <span class="pl-k">function</span>(){},<span class="pl-c">// callback when pageno change</span>
+        lang<span class="pl-k">:</span> {
+            firstPageText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>首页<span class="pl-pds">'</span></span>,
+            firstPageTipText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>首页<span class="pl-pds">'</span></span>,
+            lastPageText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>尾页<span class="pl-pds">'</span></span>,
+            lastPageTipText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>尾页<span class="pl-pds">'</span></span>,
+            prePageText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>上一页<span class="pl-pds">'</span></span>,
+            prePageTipText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>上一页<span class="pl-pds">'</span></span>,
+            nextPageText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>下一页<span class="pl-pds">'</span></span>,
+            nextPageTipText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>下一页<span class="pl-pds">'</span></span>,
+            totalPageBeforeText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>共<span class="pl-pds">'</span></span>,
+            totalPageAfterText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>页<span class="pl-pds">'</span></span>,
+            currPageBeforeText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>当前第<span class="pl-pds">'</span></span>,
+            currPageAfterText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>页<span class="pl-pds">'</span></span>,
+            totalInfoSplitStr<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/<span class="pl-pds">'</span></span>,
+            gopageBeforeText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>&amp;nbsp;转到<span class="pl-pds">'</span></span>,
+            gopageButtonOkText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>确定<span class="pl-pds">'</span></span>,
+            gopageAfterText<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>页<span class="pl-pds">'</span></span>
+        }
+    };</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Pager maintained by <a href="https://github.com/xdimh">xdimh</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
