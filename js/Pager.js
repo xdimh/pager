@@ -36,8 +36,6 @@
             currPageBeforeText: '当前第',
             currPageAfterText: '页',
             totalInfoSplitStr: '/',
-            totalRecordsBeforeText: '共',
-            totalRecordsAfterText: '页',
             gopageBeforeText: '&nbsp;转到',
             gopageButtonOkText: '确定',
             gopageAfterText: '页'
@@ -186,9 +184,9 @@
             + '</span><span>'
             + _opts.lang.totalInfoSplitStr
             + '</span><span>'
-            + _opts.lang.totalRecordsBeforeText
+            + _opts.lang.totalPageBeforeText
             + _opts.total
-            + _opts.lang.totalRecordsAfterText
+            + _opts.lang.totalPageAfterText
             + '</sapn>';
             _$totalWraper.append(_totalInfoStr);
             this.moreWraper.append(_$totalWraper);
