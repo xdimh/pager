@@ -6,19 +6,21 @@
     <link rel="stylesheet" href="../css/pager_blue.css"/>
 </head>
 <body>
-<div class="J-pagerwraper">
+<div class="J-pagerwraper1">
 
 </div>
-<div class="J-pagerwraper">
+<div class="J-pagerwraper2" style="margin-top:100px;">
 
 </div>
 <script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 <script src="../js/Pager.js"></script>
 <script>
-    $('.J-pagerwraper').pager({
+    $('.J-pagerwraper1').pager();
+    $('.J-pagerwraper2').pager({
         onchange:function(_data) {
-            alert(_data.index);
-        }
+//            alert(_data.index);
+        },
+        ref : $('.J-pagerwraper1').data('xdimh.pager')
     });
 </script>
 </body>

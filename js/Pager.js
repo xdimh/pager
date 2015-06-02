@@ -13,7 +13,7 @@
         curno: 4, //当前页码
         limit: 10,
         show: 5,
-        total: 20, //总页码
+        total: 122, //总页码
         totalRecords: 0, //总数据条数
         isShowFirstPageBtn: true, //是否显示首页按钮
         isShowLastPageBtn: true, //是否显示尾页按钮
@@ -21,6 +21,7 @@
         isShowCurPageNo: true,//是否显示当前页
         isShowTotalRecords: true, //是否显示总记录数
         isGoPage: true,	//是否显示页码跳转输入框
+        onchange : function(){},
         lang: {
             firstPageText: '首页',
             firstPageTipText: '首页',
@@ -44,7 +45,7 @@
     };
 
     _pro.__init = function (opts) {
-        this.opts = $.extend(Pager.DEFAULTS, opts);
+        this.opts = $.extend({},Pager.DEFAULTS, opts);
         this.lang = this.opts.lang;
         this.count = Math.floor(this.opts.show / 2);
         this.opts.total = this.opts.total || this.opts.totalRecords && Math.ceil(this.opts.totalRecords / this.opts.limit);
@@ -63,7 +64,6 @@
         this.__createFirstPrevPageBtn();
         this.__createPageNoBtn();
         this.__createLastNextPageBtn();
-
         this.__createTotalInfo();
         this.__createGoBtn();
         this.pager.append(this.pageNoWraper);
@@ -277,19 +277,22 @@
             _isShowPrevDot = false,
             _isShowNextDot = false,
             _lastSet;
+        if(_opts.ref && _opts.ref instanceof Pager) {
+            _opts.ref._$goPageNo.call(_opts.ref,_opts.curno);
+        }
         $('#J-curr', this.moreWraper).text(_opts.curno);
         $('#J-pagenoipt', this.moreWraper).val(_opts.curno);
         if (_opts.curno <= 1) {
             _opts.curno = 1;
-            $('.first,.prev').addClass('disabled');
+            $('.first,.prev',this.pageNoWraper).addClass('disabled');
         } else {
-            $('.first,.prev').removeClass('disabled');
+            $('.first,.prev',this.pageNoWraper).removeClass('disabled');
         }
         if (_opts.curno >= _opts.total) {
             _opts.curno = _opts.total;
-            $('.last,.next').addClass('disabled');
+            $('.last,.next',this.pageNoWraper).addClass('disabled');
         } else {
-            $('.last,.next').removeClass('disabled');
+            $('.last,.next',this.pageNoWraper).removeClass('disabled');
         }
 
         if (_opts.total < (this.count * 2 + 3)) {
@@ -364,7 +367,7 @@
     };
 
     _pro._$goPageNo = function(n) {
-        if(n != this.curno) {
+        if(n != this.opts.curno) {
             this.opts.curno = n;
             this.__updatePageNo();
             this.opts.onchange({
@@ -374,14 +377,25 @@
         }
     };
 
+    _pro._$addOpt = function(_name,_value) {
+        this.opts[_name] = _value;
+    };
+
     _pro._$getPager = function() {
       return this.pager;
     };
 
     $.fn.pager = function (_opts) {
-        return this.each(function(index,container){
-           var _pager = new Pager(_opts)._$getPager();
-            $(container).append(_pager);
+        return this.each(function(){
+           var $this = $(this),
+               _pager = $this.data('xdimh.pager');
+           if(!_pager) {
+               $this.data('xdimh.pager',(_pager = new Pager(_opts)));
+           }
+           if(_opts && _opts.ref && _opts.ref instanceof Pager) {
+               _opts.ref._$addOpt('ref',_pager);
+           }
+           $this.append(_pager._$getPager());
         });
     };
 
